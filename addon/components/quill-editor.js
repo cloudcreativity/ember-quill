@@ -2,6 +2,7 @@ import Component from '@glimmer/component';
 import Quill from 'quill';
 import { action } from '@ember/object';
 import { schedule } from '@ember/runloop';
+import { delta } from '../helpers/quill-delta';
 
 export default class QuillEditorComponent extends Component {
   quill = null;
@@ -26,7 +27,7 @@ export default class QuillEditorComponent extends Component {
     }
 
     if (this.args.delta) {
-      this.quill.setContents(this.args.delta);
+      this.quill.setContents(delta([this.args.delta]));
       this.doText();
     } else if (this.args.text) {
       this.quill.setText(this.args.text);
