@@ -1,3 +1,22 @@
-<h2 id="title">Welcome to Ember</h2>
+<h1>Ember Quill</h1>
 
-{{outlet}}
+<button type="button" {{on "click" this.toggleEnabled}}>
+  {{if this.enabled "Disable" "Enable"}}
+</button>
+
+<hr />
+
+<QuillEditor
+  @delta={{quill-delta this.delta}}
+  @enabled={{this.enabled}}
+  @focused={{true}}
+  @onContent={{this.setDelta}}
+  @onLength={{this.setLength}}
+  @onText={{this.setText}}
+  @placeholder="My story will be written here."
+  @theme="snow"
+/>
+
+<p>Length: <strong>{{this.length}}</strong></p>
+
+<p>{{this.text}}</p>

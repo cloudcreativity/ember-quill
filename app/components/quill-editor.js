@@ -1,0 +1,1 @@
+export { default } from '@cloudcreativity/ember-quill/components/quill-editor';
