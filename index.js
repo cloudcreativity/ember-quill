@@ -1,8 +1,5 @@
 'use strict';
 
-const mergeTrees = require('broccoli-merge-trees');
-const Funnel = require('broccoli-funnel');
-
 module.exports = {
   name: require('./package').name,
 

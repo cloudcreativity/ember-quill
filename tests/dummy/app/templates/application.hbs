@@ -1,27 +1,6 @@
 <h1>Ember Quill</h1>
 
-<h2>QuillEditor</h2>
-
-<p>
-  <button type="button" {{on "click" this.toggleEnabled}}>
-    {{if this.enabled "Disable" "Enable"}}
-  </button>
-</p>
-
-<QuillEditor
-  @delta={{this.delta}}
-  @enabled={{this.enabled}}
-  @focused={{true}}
-  @onContent={{this.setDelta}}
-  @onLength={{this.setLength}}
-  @onText={{this.setText}}
-  @placeholder="My story will be written here."
-  @theme="snow"
-/>
-
-<p>Length: <strong>{{this.length}}</strong></p>
-
-<h2>Quill</h2>
+<h2>Quill Component</h2>
 
 <Quill as |Ql|>
   <Ql.toolbar as |Tb|>
@@ -37,5 +16,32 @@
     </Tb.group>
   </Ql.toolbar>
 
-  <Ql.editor @theme="snow" />
+  <Ql.editor
+    @focused={{true}}
+    @placeholder="Tell us your story."
+    @theme="snow"
+  />
+
+  <dl>
+    <dt>Length</dt>
+    <dd>{{dec Ql.length}}</dd>
+    <dt>Words</dt>
+    <dd>{{Ql.words}}</dd>
+  </dl>
 </Quill>
+
+<h2>QuillEditor Component</h2>
+
+<p>
+  <button type="button" {{on "click" this.toggleEnabled}}>
+    {{if this.enabled "Disable" "Enable"}}
+  </button>
+</p>
+
+<QuillEditor
+  @delta={{this.delta}}
+  @enabled={{this.enabled}}
+  @onContent={{this.setDelta}}
+  @placeholder="My story will be written here."
+  @theme="snow"
+/>
