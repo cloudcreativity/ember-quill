@@ -1,10 +1,12 @@
 <h1>Ember Quill</h1>
 
-<button type="button" {{on "click" this.toggleEnabled}}>
-  {{if this.enabled "Disable" "Enable"}}
-</button>
+<h2>QuillEditor</h2>
 
-<hr />
+<p>
+  <button type="button" {{on "click" this.toggleEnabled}}>
+    {{if this.enabled "Disable" "Enable"}}
+  </button>
+</p>
 
 <QuillEditor
   @delta={{this.delta}}
@@ -19,4 +21,19 @@
 
 <p>Length: <strong>{{this.length}}</strong></p>
 
-<p>{{this.text}}</p>
+<h2>Quill</h2>
+
+<Quill as |Ql|>
+  <Ql.toolbar as |Tb|>
+    <Tb.group>
+      <Tb.bold />
+      <Tb.italic />
+    </Tb.group>
+    <Tb.group>
+      <Tb.script value="sub" />
+      <Tb.script value="super" />
+    </Tb.group>
+  </Ql.toolbar>
+
+  <Ql.editor @theme="snow" />
+</Quill>

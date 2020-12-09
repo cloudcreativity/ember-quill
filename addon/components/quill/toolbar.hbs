@@ -1,0 +1,8 @@
+<div ...attributes id={{@id}}>
+  {{yield (hash
+    bold=(component "quill/toolbar/button" type="bold")
+    italic=(component "quill/toolbar/button" type="italic")
+    group=(component "quill/toolbar/group")
+    script=(component "quill/toolbar/button" type="script")
+  )}}
+</div>

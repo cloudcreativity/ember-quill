@@ -1,4 +1,5 @@
-<div id="#quill-editor"
+<div id={{this.id}}
+  ...attributes
   {{did-insert this.initQuill}}
   {{did-update this.updateQuill enabled=@enabled}}
 >

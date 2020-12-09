@@ -1,0 +1,9 @@
+{{yield (hash
+  editor=(component "quill-editor"
+    id=this.editorId
+    toolbar=(concat "#" this.toolbarId)
+  )
+  toolbar=(component "quill/toolbar"
+    id=this.toolbarId
+  )
+)}}

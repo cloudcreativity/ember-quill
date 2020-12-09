@@ -1,18 +1,33 @@
 import Component from '@glimmer/component';
 import Quill from 'quill';
 import { action } from '@ember/object';
+import { guidFor } from '@ember/object/internals';
 import { schedule } from '@ember/runloop';
 import { delta } from '../helpers/quill-delta';
 
 export default class QuillEditorComponent extends Component {
   quill = null;
 
+  get id() {
+    return this.args.id ?? guidFor(this);
+  }
+
+  get modules() {
+    let modules = this.args.modules ?? {};
+
+    if (this.args.toolbar) {
+      modules.toolbar = this.args.toolbar;
+    }
+
+    return modules;
+  }
+
   @action
   initQuill(element) {
     this.quill = new Quill(element, {
       debug: this.args.debug ?? 'warn',
       formats: this.args.formats,
-      modules: this.args.modules,
+      modules: this.modules,
       placeholder: this.args.placeholder,
       readOnly: this.args.readOnly ?? false,
       theme: this.args.theme,
