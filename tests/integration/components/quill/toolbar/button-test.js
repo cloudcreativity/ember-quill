@@ -6,21 +6,32 @@ import { hbs } from 'ember-cli-htmlbars';
 module('Integration | Component | quill/toolbar/button', function(hooks) {
   setupRenderingTest(hooks);
 
-  test('it renders', async function(assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
-
-    await render(hbs`<Quill::Toolbar::Button />`);
-
-    assert.equal(this.element.textContent.trim(), '');
-
-    // Template block usage:
+  test('it renders inline', async function (assert) {
     await render(hbs`
-      <Quill::Toolbar::Button>
-        template block text
+      <Quill::Toolbar::Button @type="bold" />
+    `);
+
+    assert.dom('button')
+      .hasClass('ql-bold')
+      .hasAttribute('type', 'button');
+
+    await render(hbs`
+      <Quill::Toolbar::Button @type="script" value="sub" />
+    `);
+
+    assert.dom('button').hasClass('ql-script').hasAttribute('value', 'sub');
+  });
+
+  test('it renders as block', async function (assert) {
+    await render(hbs`
+      <Quill::Toolbar::Button @type="bold">
+        Bold!
       </Quill::Toolbar::Button>
     `);
 
-    assert.equal(this.element.textContent.trim(), 'template block text');
+    assert.dom('button')
+      .hasClass('ql-bold')
+      .hasText('Bold!')
+      .hasAttribute('type', 'button');
   });
 });

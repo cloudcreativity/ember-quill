@@ -6,21 +6,16 @@ import { hbs } from 'ember-cli-htmlbars';
 module('Integration | Component | quill/toolbar/group', function(hooks) {
   setupRenderingTest(hooks);
 
-  test('it renders', async function(assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
-
-    await render(hbs`<Quill::Toolbar::Group />`);
-
-    assert.equal(this.element.textContent.trim(), '');
-
-    // Template block usage:
+  test('it renders', async function (assert) {
     await render(hbs`
-      <Quill::Toolbar::Group>
+      <Quill::Toolbar::Group class="foo">
         template block text
       </Quill::Toolbar::Group>
     `);
 
-    assert.equal(this.element.textContent.trim(), 'template block text');
+    assert.dom('div')
+      .hasClass('ql-formats')
+      .hasClass('foo')
+      .hasText('template block text');
   });
 });

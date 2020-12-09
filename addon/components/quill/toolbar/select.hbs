@@ -1,0 +1,9 @@
+<select class={{this.qlClass}} ...attributes>
+  {{#if (has-block)}}
+    {{yield}}
+  {{else}}
+    {{#each @values as |value|}}
+      <option selected={{eq @selected value}} value={{if value value}}></option>
+    {{/each}}
+  {{/if}}
+</select>
