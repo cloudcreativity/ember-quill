@@ -3,7 +3,6 @@ import Quill from 'quill';
 import { action } from '@ember/object';
 import { guidFor } from '@ember/object/internals';
 import { schedule } from '@ember/runloop';
-import { delta } from '../helpers/quill-delta';
 
 export default class QuillEditorComponent extends Component {
   quill = null;
@@ -25,11 +24,13 @@ export default class QuillEditorComponent extends Component {
   @action
   initQuill(element) {
     this.quill = new Quill(element, {
+      bounds: this.args.bounds,
       debug: this.args.debug ?? 'warn',
       formats: this.args.formats,
       modules: this.modules,
       placeholder: this.args.placeholder,
       readOnly: this.args.readOnly ?? false,
+      scrollingContainer: this.args.scrollingContainer ?? null,
       theme: this.args.theme,
     });
 
@@ -42,7 +43,7 @@ export default class QuillEditorComponent extends Component {
     }
 
     if (this.args.delta) {
-      this.quill.setContents(delta([this.args.delta]));
+      this.quill.setContents(this.args.delta);
       this.doText();
     } else if (this.args.text) {
       this.quill.setText(this.args.text);

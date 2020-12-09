@@ -8,15 +8,7 @@ module.exports = {
 
   included(app) {
     this._super.included.apply(this, arguments);
-    app.import('vendor/quill.core.css');
-    app.import('vendor/quill.snow.css');
+    app.import('node_modules/quill/dist/quill.snow.css');
+    app.import('node_modules/quill/dist/quill.bubble.css');
   },
-
-  treeForVendor(tree) {
-    let styles = new Funnel(`${this.project.root}/node_modules/quill/dist`, {
-      files: ['quill.core.css', 'quill.snow.css'],
-    });
-
-    return mergeTrees([tree, styles]);
-  }
 };
