@@ -1,0 +1,22 @@
+{{#if (or (is-array @values) (eq "select" @controlType))}}
+  {{#if (has-block)}}
+    <Quill::Toolbar::Select @type={{@type}} ...attributes>
+      {{yield}}
+    </Quill::Toolbar::Select>
+  {{else}}
+    <Quill::Toolbar::Select
+      @selected={{@selected}}
+      @type={{@type}}
+      @values={{@values}}
+      ...attributes
+    />
+  {{/if}}
+{{else}}
+  {{#if (has-block)}}
+    <Quill::Toolbar::Button @type={{@type}} ...attributes>
+      {{yield}}
+    </Quill::Toolbar::Button>
+  {{else}}
+    <Quill::Toolbar::Button @type={{@type}} ...attributes />
+  {{/if}}
+{{/if}}

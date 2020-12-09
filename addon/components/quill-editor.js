@@ -15,8 +15,8 @@ export default class QuillEditorComponent extends Component {
   get modules() {
     let modules = this.args.modules ?? {};
 
-    if (this.args.toolbar) {
-      modules.toolbar = this.args.toolbar;
+    if (this.args._toolbar) {
+      modules.toolbar = this.args._toolbar;
     }
 
     return modules;

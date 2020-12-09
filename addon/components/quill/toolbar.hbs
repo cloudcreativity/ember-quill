@@ -1,8 +1,17 @@
 <div ...attributes id={{@id}}>
   {{yield (hash
+    blockquote=(component "quill/toolbar/button" type="blockquote")
     bold=(component "quill/toolbar/button" type="bold")
-    italic=(component "quill/toolbar/button" type="italic")
+    code-block=(component "quill/toolbar/button" type="code-block")
+    direction=(component "quill/toolbar/button" type="direction")
     group=(component "quill/toolbar/group")
+    header=(component "quill/toolbar/button-or-select" type="header")
+    indent=(component "quill/toolbar/button" type="indent")
+    italic=(component "quill/toolbar/button" type="italic")
+    list=(component "quill/toolbar/button" type="list")
     script=(component "quill/toolbar/button" type="script")
+    size=(component "quill/toolbar/select" type="size")
+    strike=(component "quill/toolbar/button" type="strike")
+    underline=(component "quill/toolbar/button" type="underline")
   )}}
 </div>
