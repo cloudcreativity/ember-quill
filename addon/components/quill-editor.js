@@ -53,10 +53,10 @@ export default class QuillEditorComponent extends Component {
       this.doText();
     } else if (this.args.text) {
       this.quill.setText(this.args.text);
-      this.doContent();
+      this.doChange();
     }
 
-    // emit the length on start-up
+    // emit the length and words on start-up
     this.doLength();
     this.doWords();
 
@@ -68,7 +68,7 @@ export default class QuillEditorComponent extends Component {
     /** Custom Events */
     this.quill.on('text-change', this.doLength);
     this.quill.on('text-change', this.doWords);
-    this.quill.on('text-change', this.doContent);
+    this.quill.on('text-change', this.doChange);
     this.quill.on('text-change', this.doText);
 
     this.quillService.register(this.name, this.quill);
@@ -110,9 +110,9 @@ export default class QuillEditorComponent extends Component {
   }
 
   @action
-  doContent() {
-    if (this.quill && this.args.onContent) {
-      schedule('actions', this, this._handleEvent, 'onContent', this.quill.getContents());
+  doChange() {
+    if (this.quill && this.args.onChange) {
+      schedule('actions', this, this._handleEvent, 'onChange', this.quill.getContents());
     }
   }
 
@@ -142,7 +142,7 @@ export default class QuillEditorComponent extends Component {
     /** Custom Events */
     this.quill.off('text-change', this.doLength);
     this.quill.off('text-change', this.doWords);
-    this.quill.off('text-change', this.doContent);
+    this.quill.off('text-change', this.doChange);
     this.quill.off('text-change', this.onText);
 
     this.quill = null;

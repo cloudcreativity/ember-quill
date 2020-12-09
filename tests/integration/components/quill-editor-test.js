@@ -1,27 +1,49 @@
-import { module, skip } from 'qunit';
+import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, fillIn } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 
 module('Integration | Component | quill-editor', function(hooks) {
   setupRenderingTest(hooks);
 
-  // @TODO
-  skip('it renders', async function(assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
+  test('it renders with a delta', async function (assert) {
+    this.set('delta', {
+      ops: [
+        { insert: 'This is my story.\n'}
+      ],
+    });
 
-    await render(hbs`<QuillEditor />`);
-
-    assert.equal(this.element.textContent.trim(), '');
-
-    // Template block usage:
     await render(hbs`
-      <QuillEditor>
-        template block text
-      </QuillEditor>
+      <QuillEditor
+        @delta={{this.delta}}
+        @onChange={{action (mut this.delta)}}
+      />
     `);
 
-    assert.equal(this.element.textContent.trim(), 'template block text');
+    assert.dom('.ql-editor').hasText('This is my story.');
+
+    await fillIn('.ql-editor', 'This is my other story.');
+
+    assert.deepEqual(this.delta.ops, [
+      { insert: 'This is my other story.\n' },
+    ]);
+  });
+
+  test('it renders with text', async function (assert) {
+    this.set('text', 'This is my story.');
+    this.set('update', text => this.set('text', text.trim()));
+
+    await render(hbs`
+      <QuillEditor
+        @text={{this.text}}
+        @onText={{this.update}}
+      />
+    `);
+
+    assert.dom('.ql-editor').hasText('This is my story.');
+
+    await fillIn('.ql-editor', 'This is my other story.');
+
+    assert.equal(this.text, 'This is my other story.');
   });
 });

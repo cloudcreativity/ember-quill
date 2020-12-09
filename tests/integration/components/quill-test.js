@@ -1,27 +1,36 @@
-import { module, skip } from 'qunit';
+import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, fillIn } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 
 module('Integration | Component | quill', function(hooks) {
   setupRenderingTest(hooks);
 
-  // @TODO
-  skip('it renders', async function(assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
-
-    await render(hbs`<Quill />`);
-
-    assert.equal(this.element.textContent.trim(), '');
-
-    // Template block usage:
+  test('it renders', async function (assert) {
     await render(hbs`
-      <Quill>
-        template block text
+      <Quill as |Ql|>
+        <Ql.toolbar as |Tb|>
+          <Tb.bold />
+          <Tb.italic />
+        </Ql.toolbar>
+        <Ql.editor
+          @onChange={{action (mut this.delta)}}
+          @onText={{action (mut this.text)}}
+        />
+        <p data-test-length>{{dec Ql.length}}</p>
+        <p data-test-words>{{Ql.words}}</p>
       </Quill>
     `);
 
-    assert.equal(this.element.textContent.trim(), 'template block text');
+    assert.dom('.ql-toolbar > button').exists({ count: 2 });
+
+    await fillIn('.ql-editor', 'An epic story.');
+
+    assert.equal(this.text.trim(), 'An epic story.');
+    assert.dom('[data-test-length]').hasText('14');
+    assert.dom('[data-test-words]').hasText('3');
+    assert.deepEqual(this.delta.ops, [
+      { insert: 'An epic story.\n'},
+    ]);
   });
 });
