@@ -1,17 +1,27 @@
 <div ...attributes id={{@id}}>
   {{yield (hash
+    align=(component "quill/toolbar/button-or-select" type="align")
+    background=(component "quill/toolbar/select" type="background")
     blockquote=(component "quill/toolbar/button" type="blockquote")
     bold=(component "quill/toolbar/button" type="bold")
+    clean=(component "quill/toolbar/button" type="clean")
     code-block=(component "quill/toolbar/button" type="code-block")
+    code=(component "quill/toolbar/button" type="code")
+    color=(component "quill/toolbar/select" type="color")
     direction=(component "quill/toolbar/button" type="direction")
+    font=(component "quill/toolbar/select" type="font")
+    formula=(component "quill/toolbar/button" type="formula")
     group=(component "quill/toolbar/group")
     header=(component "quill/toolbar/button-or-select" type="header")
+    image=(component "quill/toolbar/button" type="image")
     indent=(component "quill/toolbar/button" type="indent")
     italic=(component "quill/toolbar/button" type="italic")
+    link=(component "quill/toolbar/button" type="link")
     list=(component "quill/toolbar/button" type="list")
     script=(component "quill/toolbar/button" type="script")
     size=(component "quill/toolbar/select" type="size")
     strike=(component "quill/toolbar/button" type="strike")
     underline=(component "quill/toolbar/button" type="underline")
+    video=(component "quill/toolbar/button" type="video")
   )}}
 </div>
