@@ -31,6 +31,7 @@ module.exports = async function() {
         }
       },
       {
+        allowedToFail: true,
         name: 'ember-beta',
         npm: {
           devDependencies: {
@@ -39,6 +40,7 @@ module.exports = async function() {
         }
       },
       {
+        allowedToFail: true,
         name: 'ember-canary',
         npm: {
           devDependencies: {
@@ -56,21 +58,6 @@ module.exports = async function() {
         npm: {
           devDependencies: {
             '@ember/jquery': '^1.1.0'
-          }
-        }
-      },
-      {
-        name: 'ember-classic',
-        env: {
-          EMBER_OPTIONAL_FEATURES: JSON.stringify({
-            'application-template-wrapper': true,
-            'default-async-observers': false,
-            'template-only-glimmer-components': false
-          })
-        },
-        npm: {
-          ember: {
-            edition: 'classic'
           }
         }
       }
