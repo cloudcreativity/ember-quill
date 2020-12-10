@@ -22,7 +22,7 @@ ember install @cloudcreativity/ember-quill
 
 - [Introduction](#introduction)
 - [Examples](#examples)
-- [`<Quill> Component`](#quill-component)
+- [`<Quill>` Component](#quill-component)
 - [`<QuillEditor>` Component](#quill-editor-component)
 - [Quill Service](#quill-service)
 - [Quill Static Methods](#quill-static-methods)
