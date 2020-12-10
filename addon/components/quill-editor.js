@@ -8,6 +8,7 @@ import { schedule } from '@ember/runloop';
 export default class QuillEditorComponent extends Component {
   @service('quill') quillService;
   quill = null;
+  value = null;
 
   get id() {
     return this.args.id ?? guidFor(this);
@@ -40,20 +41,20 @@ export default class QuillEditorComponent extends Component {
       theme: this.args.theme,
     });
 
-    if (false === this.args.enabled) {
-      this.quill.enable(false);
-    }
+    this.quill.enable(Boolean(this.args.enabled ?? true));
 
     if (true === this.args.focused) {
       this.quill.focus();
     }
 
     if (this.args.delta) {
-      this.quill.setContents(this.args.delta);
+      this.value = this.quill.setContents(this.args.delta);
       this.doText();
     } else if (this.args.text) {
-      this.quill.setText(this.args.text);
+      this.value = this.quill.setText(this.args.text);
       this.doChange();
+    } else {
+      this.value = this.quill.getContents();
     }
 
     // emit the length and words on start-up
@@ -75,9 +76,13 @@ export default class QuillEditorComponent extends Component {
   }
 
   @action
-  updateQuill(el, args, { enabled }) {
+  updateQuill(el, args, { enabled, delta }) {
     if (this.quill) {
       this.quill.enable(enabled ?? true);
+
+      if (delta !== this.value) {
+        this.value = this.quill.setContents(delta, Quill.sources.SILENT);
+      }
     }
   }
 
@@ -112,7 +117,8 @@ export default class QuillEditorComponent extends Component {
   @action
   doChange() {
     if (this.quill && this.args.onChange) {
-      schedule('actions', this, this._handleEvent, 'onChange', this.quill.getContents());
+      this.value = this.quill.getContents();
+      schedule('actions', this, this._handleEvent, 'onChange', this.value);
     }
   }
 
@@ -146,6 +152,7 @@ export default class QuillEditorComponent extends Component {
     this.quill.off('text-change', this.onText);
 
     this.quill = null;
+    this.value = null;
     this.quillService.deregister(this.name);
   }
 

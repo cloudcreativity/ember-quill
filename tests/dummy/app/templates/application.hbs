@@ -36,6 +36,10 @@
   <button type="button" {{on "click" this.toggleEnabled}}>
     {{if this.enabled "Disable" "Enable"}}
   </button>
+
+  <button type="button" {{on "click" this.reset}}>
+    Reset
+  </button>
 </p>
 
 <QuillEditor

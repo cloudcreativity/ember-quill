@@ -5,6 +5,7 @@ import { action } from '@ember/object';
 export default class ApplicationController extends Controller {
   @tracked enabled = true;
   @tracked delta = null;
+  original = null;
 
   constructor() {
     super(...arguments);
@@ -15,6 +16,8 @@ export default class ApplicationController extends Controller {
         { insert: '\n' },
       ],
     }
+
+    this.original = this.delta;
   }
 
   @action
@@ -27,4 +30,8 @@ export default class ApplicationController extends Controller {
     this.delta = delta;
   }
 
+  @action
+  reset() {
+    this.delta = this.original;
+  }
 }

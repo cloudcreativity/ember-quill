@@ -7,11 +7,13 @@ module('Integration | Component | quill-editor', function(hooks) {
   setupRenderingTest(hooks);
 
   test('it renders with a delta', async function (assert) {
-    this.set('delta', {
+    const delta = {
       ops: [
         { insert: 'This is my story.\n'}
       ],
-    });
+    };
+
+    this.set('delta', delta);
 
     await render(hbs`
       <QuillEditor
@@ -29,6 +31,10 @@ module('Integration | Component | quill-editor', function(hooks) {
     assert.deepEqual(this.delta.ops, [
       { insert: 'This is my other story.\n' },
     ]);
+
+    this.set('delta', delta);
+
+    assert.dom('.ql-editor').hasText('This is my story.');
   });
 
   test('it renders with text', async function (assert) {
