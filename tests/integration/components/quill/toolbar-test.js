@@ -158,7 +158,7 @@ module('Integration | Component | quill/toolbar', function(hooks) {
       </Quill::Toolbar>
     `);
 
-    assert.dom('#my-toolbar > div.ql-formats > button').exists({ count: 2 });
+    assert.dom('#my-toolbar > span.ql-formats > button').exists({ count: 2 });
   });
 
   test('it yields a header button', async function (assert) {

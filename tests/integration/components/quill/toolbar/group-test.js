@@ -13,7 +13,7 @@ module('Integration | Component | quill/toolbar/group', function(hooks) {
       </Quill::Toolbar::Group>
     `);
 
-    assert.dom('div')
+    assert.dom('span')
       .hasClass('ql-formats')
       .hasClass('foo')
       .hasText('template block text');

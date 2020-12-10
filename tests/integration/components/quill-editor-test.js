@@ -17,9 +17,11 @@ module('Integration | Component | quill-editor', function(hooks) {
       <QuillEditor
         @delta={{this.delta}}
         @onChange={{action (mut this.delta)}}
+        class="foo"
       />
     `);
 
+    assert.dom('.foo').exists();
     assert.dom('.ql-editor').hasText('This is my story.');
 
     await fillIn('.ql-editor', 'This is my other story.');

@@ -50,7 +50,7 @@ Use the `<Quill>` component to create your toolbar and editor:
   />
 
   <div>
-    Length: {{dec Ql.length}}<br>
+    Characters: {{Ql.characters}}<br>
     Words: {{Ql.words}}
   </div>
 </Quill>
@@ -92,11 +92,11 @@ for example:
 </Quill>
 ```
 
-The toolbar yields components for all the toolbar buttons supported by
+The toolbar yields components for all the toolbar controls supported by
 Quill. These are either `<button>` and/or `<select>` elements. The
-supported components are:
+supported controls are:
 
-| Component | Type |
+| Control | Type |
 | --- | --- |
 | `align` | `<button>` or `<select>` |
 | `background` | `<select>` |
@@ -109,7 +109,6 @@ supported components are:
 | `direction` | `<button>` |
 | `font` | `<select>` |
 | `formula` | `<button>` |
-| `group` | `<div>` |
 | `header` | `<button>` or `<select>` |
 | `image` | `<button>` |
 | `indent` | `<button>` |
@@ -135,10 +134,10 @@ For `<select>` elements, provide the list of values using the `@value`
 argument with the `{{array}}` helper:
 
 ```hbs
-<Tb.size @values={{array "small" false "large" "huge"}}
+<Tb.size @values={{array "small" false "large" "huge"}} />
 ```
 
-Provide an empty array if you want to use the theme's default values.
+Provide an empty value if you want to use the theme's default values.
 For example, the *Snow* theme provides a list of 35 colors for the
 `color` and `background` toolbar options. To use the defaults:
 
@@ -147,7 +146,7 @@ For example, the *Snow* theme provides a list of 35 colors for the
 <Tb.background />
 ```
 
-Some options, e.g. `header`, work as either `<button>` or `<select>`
+Some controls, e.g. `header`, work as either `<button>` or `<select>`
 elements. For these, you **must** provide a `@values` argument if you
 want to use a `<select>`. Otherwise a `<button>` will be used. For example:
 
@@ -161,6 +160,21 @@ want to use a `<select>`. Otherwise a `<button>` will be used. For example:
 
 <!-- Header Select with Theme Defaults -->
 <Tb.header @values={{array}} />
+```
+
+The `group` component allows you to group controls, i.e. add space between
+sets of controls. This is done by using a `<span>` with the `ql-formats`
+class:
+
+```hbs
+<Tb.group>
+  <Tb.bold />
+  <Tb.italic />
+</Tb.group>
+<Tb.group>
+  <Tb.list value="ordered" />
+  <Tb.list value="bullet" />
+</Tb.group>
 ```
 
 #### Editor
@@ -376,12 +390,12 @@ of the editor instance, followed by the arguments as defined in the
 - `update`
 
 > If you use the `disable` or `enable` methods, the `@enabled` argument
-on the `<QuillEditor>` will get out-of-sync. We recommend using the `@enabled`
-argument rather than the methods via the service.
+on the `<QuillEditor>` component will get out-of-sync. We recommend using
+the `@enabled` argument rather than the methods via the service.
 
 As Quill editor instances are deregistered from the service when the
-`<QuillEditor>` component is being destroyed, the return value will be `null`
-if the named editor does not exist on the Quill service.
+`<QuillEditor>` component is being destroyed, any methods that return values
+will return `null` if the named editor does not exist on the Quill service.
 
 If you need to call multiple methods on a Quill instance, you can use the
 service's `instance` method to retrieve the named editor. This will return
@@ -407,6 +421,38 @@ var Module = Quill.import('core/module');
 class CustomModule extends Module {}
 
 Quill.register('modules/custom-module', CustomModule);
+```
+
+### Testing
+
+All Quill event handlers are executed via the Ember runloop, to ensure that
+you can easily use your Quill components in tests.
+
+Use the `fillIn` test helper with the `.ql-editor` selector:
+
+```js
+test('it renders', async function (assert) {
+  this.set('delta', {
+    ops: [
+      { insert: 'This is my story.\n'}
+    ],
+  });
+
+  await render(hbs`
+    <QuillEditor
+      @delta={{this.delta}}
+      @onChange={{action (mut this.delta)}}
+    />
+  `);
+
+  assert.dom('.ql-editor').hasText('This is my story.');
+
+  await fillIn('.ql-editor', 'This is my other story.');
+
+  assert.deepEqual(this.delta.ops, [
+    { insert: 'This is my other story.\n' },
+  ]);
+});
 ```
 
 ## Contributing
