@@ -5,6 +5,7 @@ import { guidFor } from '@ember/object/internals';
 
 export default class QuillComponent extends Component {
   @tracked length;
+  @tracked characters;
   @tracked words;
 
   get id() {
@@ -22,6 +23,7 @@ export default class QuillComponent extends Component {
   @action
   setLength(length) {
     this.length = length;
+    this.characters = length - 1;
   }
 
   @action

@@ -23,8 +23,8 @@
   />
 
   <dl>
-    <dt>Length</dt>
-    <dd>{{dec Ql.length}}</dd>
+    <dt>Characters</dt>
+    <dd>{{Ql.characters}}</dd>
     <dt>Words</dt>
     <dd>{{Ql.words}}</dd>
   </dl>
@@ -41,7 +41,7 @@
 <QuillEditor
   @delta={{this.delta}}
   @enabled={{this.enabled}}
-  @onContent={{this.setDelta}}
+  @onChange={{this.setDelta}}
   @placeholder="My story will be written here."
   @theme="snow"
 />

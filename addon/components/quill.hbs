@@ -1,13 +1,14 @@
 {{yield (hash
+  characters = this.characters
   editor=(component "quill-editor"
     id=this.editorId
     onLength=this.setLength
     onWords=this.setWords
     _toolbar=(concat "#" this.toolbarId)
   )
+  length=this.length
   toolbar=(component "quill/toolbar"
     id=this.toolbarId
   )
-  length=this.length
   words=this.words
 )}}

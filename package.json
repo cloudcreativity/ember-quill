@@ -3,11 +3,13 @@
   "version": "0.0.0",
   "description": "The default blueprint for ember-cli addons.",
   "keywords": [
-    "ember-addon"
+    "ember-addon",
+    "quill",
+    "quilljs"
   ],
-  "repository": "",
+  "repository": "https://github.com/cloudcreativity/ember-quill",
   "license": "MIT",
-  "author": "",
+  "author": "Christopher Gammie <info@cloudcreativity.co.uk>",
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -41,7 +43,6 @@
     "ember-cli-inject-live-reload": "^2.0.2",
     "ember-cli-sri": "^2.1.1",
     "ember-cli-terser": "^4.0.0",
-    "ember-composable-helpers": "^4.4.1",
     "ember-disable-prototype-extensions": "^1.1.3",
     "ember-export-application-global": "^2.0.1",
     "ember-load-initializers": "^2.1.1",
