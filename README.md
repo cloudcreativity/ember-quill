@@ -18,6 +18,16 @@ ember install @cloudcreativity/ember-quill
 
 ## Usage
 
+### Contents
+
+- [Introduction](#introduction)
+- [Examples](#examples)
+- [`<Quill> Component`](#quill-component)
+- [`<QuillEditor>` Component](#quill-editor-component)
+- [Quill Service](#quill-service)
+- [Quill Static Methods](#quill-static-methods)
+- [Testing](#testing)
+
 ### Introduction
 
 This addon provides components for working with the [Quill](https://quilljs.com)
